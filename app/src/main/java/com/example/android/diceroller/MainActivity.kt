@@ -20,12 +20,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.android.diceroller.databinding.ActivityMainBinding
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        //setContentView(R.layout.activity_main)
 
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener {
@@ -34,15 +42,21 @@ class MainActivity : AppCompatActivity() {
             //    Windows/Linux - Alt + Enter
             //    Mac - Option + Enter
 
-            Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show()
+            rollDice()
         }
 
         // TODO (03) In rollDice get a Random int between 1 and 6
 
         // TODO (04) In rollDice use findViewById to get a reference to the TextView
-        // and assign it to an inmutable variable called resultText
+        // and assign it to an immutable variable called resultText
 
         // TODO (05) In rollDice set the random value that you got above as the
         // text of the TextView
+    }
+
+    private fun rollDice() {
+        val resultText = binding.resultText
+        val randomInt = Random().nextInt(6) + 1
+        resultText.text = randomInt.toString()
     }
 }
